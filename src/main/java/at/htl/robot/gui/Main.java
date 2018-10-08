@@ -8,6 +8,10 @@ public class Main extends PApplet {
 
     // Hier die Member-Attribute eintragen
     Robot robot = new Robot();
+    private final int MAXROW = 7;
+    private final int MAXCOL = 8;
+    private final int SCALE = 100;
+    private char [][] field = new char[MAXROW][MAXCOL];
 
     public static void main(String[] args) {
         PApplet.main("at.htl.robot.gui.Main", args);
@@ -19,8 +23,11 @@ public class Main extends PApplet {
 
     public void setup() {
         background(209); //https://processing.org/tutorials/color/
-
-
+        for (int i = 0; i < MAXROW; i++) {
+            for (int j = 0; j < MAXCOL; j++) {
+                field[i][j] = '0';
+            }
+        }
     }
 
     /**
@@ -29,23 +36,35 @@ public class Main extends PApplet {
     public void draw() {
 
         deleteAll();
-        for (int i = 100; i < width; i+= 100) {
-                line( 0, i, 800, i);
-                line(i, 100, i, 800);
-            }
+
+        drawGride();
 
         drawRobot(robot);
 
-        delay(1000);
+        delay(150);
 
         if (keyPressed){
-            keyPressed();
+            ifkeyPressed();
         }
 
 
 
 
     }
+
+    private void drawGride() {
+        // Horizontale Linien zeichnen
+        for (int r = 1; r < MAXROW; r++) {
+            line(0, r * SCALE - 1, MAXCOL * SCALE - 1, r * SCALE - 1);
+        }
+
+        // Vertikale Linien zeichnen
+        for (int c = 1; c < MAXCOL; c++) {
+            line(c * SCALE - 1, 0, c * SCALE - 1, MAXROW * SCALE - 1);
+        }
+
+    }
+
 
     /**
      * Erstellen Sie eine eigene Methode, mittels der der Roboter am Bildschirm gezeichnet wird
@@ -55,7 +74,8 @@ public class Main extends PApplet {
      * @param robot Objekt des zu zeichnenden Roboters
      */
     public void drawRobot(Robot robot) {
-        ellipse(robot.getX(), robot.getY(), 100, 100);
+
+        ellipse(robot.getX()*SCALE + 50, robot.getY()*SCALE + 50, SCALE-5, SCALE-5);
 
     }
 
@@ -69,7 +89,7 @@ public class Main extends PApplet {
     /**
      * In dieser Methode reagieren Sie auf die Tasten
      */
-    public void keyPressed() {
+    public void ifkeyPressed() {
         println("pressed " + key + " " + keyCode);
 
         if (key == 'f' || key == 'F') {

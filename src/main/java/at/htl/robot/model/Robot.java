@@ -2,8 +2,8 @@ package at.htl.robot.model;
 
 public class Robot {
 
-    private int x = 50;
-    private int y = 150;
+    private int x = 0;
+    private int y = 0;
     private Direction direction = Direction.SOUTH;
 
     //region Getter and Setter
@@ -35,16 +35,16 @@ public class Robot {
     public void stepForward() {
         switch (getDirection()){
             case EAST:
-                setX(getX() + 100);
+                setX(getX() + 1);
                 break;
             case WEST:
-                setX(getX() - 100);
+                setX(getX() - 1);
                 break;
             case NORTH:
-                setY(getY() - 100);
+                setY(getY() - 1);
                 break;
             case SOUTH:
-                setY(getY() + 100);
+                setY(getY() + 1);
         }
     }
 
