@@ -12,6 +12,9 @@ public class Main extends PApplet {
     private final int MAXCOL = 8;
     private final int SCALE = 100;
     private char [][] field = new char[MAXROW][MAXCOL];
+    private String s = "Susi - the little robot";
+    private String a = "<F> ... 1 Schritte vorwärts, <L> ... Drehe nach links";
+
 
     public static void main(String[] args) {
         PApplet.main("at.htl.robot.gui.Main", args);
@@ -23,11 +26,7 @@ public class Main extends PApplet {
 
     public void setup() {
         background(209); //https://processing.org/tutorials/color/
-        for (int i = 0; i < MAXROW; i++) {
-            for (int j = 0; j < MAXCOL; j++) {
-                field[i][j] = '0';
-            }
-        }
+        fill(0, 102, 153);
     }
 
     /**
@@ -36,6 +35,9 @@ public class Main extends PApplet {
     public void draw() {
 
         deleteAll();
+
+        text(s,10,40);
+        text(a,10,60);
 
         drawGride();
 
@@ -55,12 +57,12 @@ public class Main extends PApplet {
     private void drawGride() {
         // Horizontale Linien zeichnen
         for (int r = 1; r < MAXROW; r++) {
-            line(0, r * SCALE - 1, MAXCOL * SCALE - 1, r * SCALE - 1);
+            line(1, r * SCALE - 1 + 100, MAXCOL * SCALE - 1, r * SCALE - 1 + 100);
         }
 
         // Vertikale Linien zeichnen
         for (int c = 1; c < MAXCOL; c++) {
-            line(c * SCALE - 1, 0, c * SCALE - 1, MAXROW * SCALE - 1);
+            line(c * SCALE - 1, + 100, c * SCALE - 1, MAXROW * SCALE - 1 + 100);
         }
 
     }
@@ -75,7 +77,7 @@ public class Main extends PApplet {
      */
     public void drawRobot(Robot robot) {
 
-        ellipse(robot.getX()*SCALE + 50, robot.getY()*SCALE + 50, SCALE-5, SCALE-5);
+        ellipse(robot.getX()*SCALE + 50, robot.getY()*SCALE + 150, SCALE-5, SCALE-5);
 
     }
 
