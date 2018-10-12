@@ -10,10 +10,10 @@ public class Main extends PApplet {
     Robot robot = new Robot();
     private final int MAXROW = 7;
     private final int MAXCOL = 8;
-    private final int SCALE = 100;
-    private char [][] field = new char[MAXROW][MAXCOL];
-    private String s = "Susi - the little robot";
-    private String a = "<F> ... 1 Schritte vorwärts, <L> ... Drehe nach links";
+    private final int SCALE = 60;
+    private final int marginleft = 50;
+    private final int margintop = 150;
+    private int [][] field = new int[MAXROW][MAXCOL];
 
 
     public static void main(String[] args) {
@@ -36,33 +36,24 @@ public class Main extends PApplet {
 
         deleteAll();
 
-        text(s,10,40);
-        text(a,10,60);
+        text("Susi - the little robot",10,40);
+        text("<F> ... 1 Schritte vorwärts, <L> ... Drehe nach links",10,60);
 
         drawGride();
 
         drawRobot(robot);
 
-        delay(150);
-
-        if (keyPressed){
-            ifkeyPressed();
-        }
-
-
-
-
     }
 
     private void drawGride() {
         // Horizontale Linien zeichnen
-        for (int r = 1; r < MAXROW; r++) {
-            line(1, r * SCALE - 1 + 100, MAXCOL * SCALE - 1, r * SCALE - 1 + 100);
+        for (int r = 0; r < MAXROW + 1; r++) {
+            line(marginleft, margintop  + r * SCALE, marginleft + MAXCOL * SCALE, margintop + r * SCALE);
         }
 
         // Vertikale Linien zeichnen
-        for (int c = 1; c < MAXCOL; c++) {
-            line(c * SCALE - 1, + 100, c * SCALE - 1, MAXROW * SCALE - 1 + 100);
+        for (int c = 0; c < MAXCOL + 1; c++) {
+            line(marginleft + c * SCALE,margintop, marginleft + c * SCALE, margintop + MAXROW * SCALE);
         }
 
     }
@@ -76,9 +67,7 @@ public class Main extends PApplet {
      * @param robot Objekt des zu zeichnenden Roboters
      */
     public void drawRobot(Robot robot) {
-
-        ellipse(robot.getX()*SCALE + 50, robot.getY()*SCALE + 150, SCALE-5, SCALE-5);
-
+            ellipse(robot.getX()* SCALE + marginleft + SCALE/2, robot.getY()*SCALE + margintop +SCALE/2, SCALE-5, SCALE-5);
     }
 
     /**
@@ -91,7 +80,7 @@ public class Main extends PApplet {
     /**
      * In dieser Methode reagieren Sie auf die Tasten
      */
-    public void ifkeyPressed() {
+    public void keyPressed() {
         println("pressed " + key + " " + keyCode);
 
         if (key == 'f' || key == 'F') {
